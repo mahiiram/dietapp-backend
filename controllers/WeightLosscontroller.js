@@ -1,17 +1,17 @@
 import Weightlossmodel from "../model/Weightlossmodel.js";
 
 export async function  getweightlossfoods (req,res){
-    let weightlossfoods;
+    let foods;
     try{
-        weightlossfoods = await Weightlossmodel.find().populate().lean()
+       foods = await Weightlossmodel.find().populate().lean()
     }catch(err){
         return console.log(err)
     }
-    if(!weightlossfoods){
+    if(!foods){
         return res.status(500).json({message:'Unexpected error occured'})
     }
     return res.status(201).json({
-        weightlossfoods
+       foods
     })
 }
 export async function WeightLoss (req,res){
