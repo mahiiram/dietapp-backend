@@ -56,7 +56,7 @@ export async function register(req, res) {
     }
     if (existingUsername) {
         return res.status(500).send({
-            Message: "user already exist"
+            msg: "user already exist"
         })
     }
     let existingEmail;
@@ -67,7 +67,7 @@ export async function register(req, res) {
     }
     if (existingEmail) {
         return res.status(500).send({
-            Message: "user already exist"
+            msg: "user already exist"
         })
     }
 
