@@ -39,18 +39,23 @@ export async function register(req, res) {
         username,
         email,
         password,
-        profile
+        profile,
+        firstname,
+        lastname,
+        mobile,
+        address
     } = req.body;
     if (!username && username.trim() === ""
         && !username && username.trim() === ""
+        && !email && email.trim() === ""
         && !password && password.trim() === "") {
-        message: "Invalid inputs"
+        msg: "Invalid inputs"
         return res.status(422).send({
         })
     }
     let existingUsername;
     try {
-        existingUsername = await UserModel.findOne({ username });
+        existingUsername = await UserModel.findOne({ username:username });
     } catch (err) {
         return console.log(err)
     }
@@ -61,7 +66,7 @@ export async function register(req, res) {
     }
     let existingEmail;
     try {
-        existingEmail = await UserModel.findOne({ email });
+        existingEmail = await UserModel.findOne({ email:email });
     } catch (err) {
         return console.log(err)
     }
@@ -79,7 +84,11 @@ export async function register(req, res) {
             username,
             email,
             password: hashedPassword,
-            profile: profile
+            profile: profile,
+            firstname,
+            lastname,
+            mobile,
+            address,
         });
         newUser = await newUser.save()
     } catch (err) { return console.log(err) }
@@ -182,7 +191,7 @@ export async function getUser(req, res) {
   "header" : "<token>"
 }
 body: {
-    firstName: '',
+    firstname: '',
     address : '',
     profile : ''
 }
@@ -194,8 +203,8 @@ export async function updateUser(req, res, next) {
                 username,
                 password,
                 email,
-                firstName,
-                lastName,
+                firstname,
+                lastname,
                 mobile,
                 address,
                 profile
@@ -204,8 +213,8 @@ export async function updateUser(req, res, next) {
     
     let user;
     try {
-        user = await UserModel.findByIdAndUpdate({_id:id}, { username, email, password,firstName,
-            lastName,
+        user = await UserModel.findByIdAndUpdate({_id:id}, { username, email, password,firstname,
+            lastname,
             mobile,
             address,
             profile })
