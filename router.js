@@ -6,6 +6,7 @@ import * as controller from './controllers/appController.js';
 import Auth,{localVariables} from "./middleware/auth.js";
 import {registerMail} from './controllers/mailer.js';
 import { WeightLoss,getweightlossfoods } from "./controllers/WeightLosscontroller.js";
+import { Weightgain,getweightgainfoods } from "./controllers/WeightGaincontroller.js";
 
 
 //post
@@ -23,8 +24,15 @@ router.route('/createResetSession').get(controller.createResetSession)   //reset
 router.route('/updateuser').put(Auth,controller.updateUser)   //is use to update the user profiles
 router.route('/resetPassword').put(controller.verifyUser,controller.resetPassword)  //use to reset password 
 
+
+//weightloss
 router.route('/postweightloss').post(WeightLoss)
 router.route('/getweightlossfoods').get(getweightlossfoods)
+
+
+//weightgain
+router.route('/postweightgain').post(Weightgain)
+router.route('/getweightgainfoods').get(getweightgainfoods)
 
 
 export default router;
